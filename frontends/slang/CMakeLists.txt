@@ -26,10 +26,12 @@ yosys_frontend(slang
 	lib/src/variables.cc
 	lib/src/variables.h
 	${CMAKE_CURRENT_BINARY_DIR}/version.h
+	ENABLE_IF
+		YOSYS_ENABLE_SLANG
 	INCLUDE_DIRS
 		${CMAKE_CURRENT_BINARY_DIR}
 	LIBRARIES
-		slang::slang
+		$<${YOSYS_ENABLE_SLANG}:slang::slang>
 		fmt::fmt
 )
 

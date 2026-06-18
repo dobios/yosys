@@ -17,6 +17,8 @@ FetchContent_Declare(
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/fmt
 )
 FetchContent_MakeAvailable(fmt)
-set(SLANG_USE_MIMALLOC OFF)
-add_subdirectory(slang)
+if (NOT YOSYS_WITHOUT_SLANG)
+    set(SLANG_USE_MIMALLOC OFF)
+    add_subdirectory(slang)
+endif()
 set(BUILD_SHARED_LIBS "${_old_BUILD_SHARED_LIBS}")
