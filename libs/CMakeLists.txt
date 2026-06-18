@@ -7,3 +7,16 @@ add_subdirectory(json11)
 add_subdirectory(minisat)
 add_subdirectory(sha1)
 add_subdirectory(subcircuit)
+set(_old_BUILD_SHARED_LIBS "${BUILD_SHARED_LIBS}")
+set(BUILD_SHARED_LIBS OFF)
+include(FetchContent)
+option(FMT_INSTALL OFF)
+FetchContent_Declare(
+    fmt
+    EXCLUDE_FROM_ALL
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/fmt
+)
+FetchContent_MakeAvailable(fmt)
+set(SLANG_USE_MIMALLOC OFF)
+add_subdirectory(slang)
+set(BUILD_SHARED_LIBS "${_old_BUILD_SHARED_LIBS}")
