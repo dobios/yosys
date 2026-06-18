@@ -5,3 +5,12 @@
 [submodule "cxxopts"]
 	path = libs/cxxopts
 	url = https://github.com/jarro2783/cxxopts
+[submodule "slang"]
+	path = libs/slang
+	url = https://github.com/MikePopoloski/slang
+[submodule "fmt"]
+	path = libs/fmt
+	url = https://github.com/fmtlib/fmt
+[submodule "yosys-slang"]
+	path = frontends/slang/lib
+	url = https://github.com/povik/yosys-slang
