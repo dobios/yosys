@@ -26,6 +26,9 @@ yosys_frontend(slang
 	lib/src/variables.cc
 	lib/src/variables.h
 	${CMAKE_CURRENT_BINARY_DIR}/version.h
+	DEFINITIONS
+		YOSYS_MAJOR=${YOSYS_VERSION_MAJOR}
+		YOSYS_MINOR=${YOSYS_VERSION_MINOR}
 	ENABLE_IF
 		YOSYS_ENABLE_SLANG
 	INCLUDE_DIRS
