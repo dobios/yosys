@@ -812,6 +812,7 @@ struct HelpPass : public Pass {
 				size_t def_strip_count = 0;
 				auto current_state = PUState_none;
 				auto catch_verific = false;
+				auto catch_slang = false;
 				auto blank_lines = 2;
 				for (string line; std::getline(ss, line, '\n');) {
 					// find position of first non space character
@@ -862,6 +863,7 @@ struct HelpPass : public Pass {
 						current_state = PUState_signature;
 						def_strip_count = first_pos;
 						catch_verific = false;
+						catch_slang = false;
 					} else if (IsDedent) {
 						def_strip_count = first_pos;
 						if (current_state == PUState_optionbody) {
@@ -881,8 +883,13 @@ struct HelpPass : public Pass {
 						}
 					}
 
-					if (IsDefinition && !catch_verific && current_state != PUState_signature) {
+					if (IsDefinition && !catch_verific && !catch_slang && current_state != PUState_signature) {
 						if (!current_buffer.empty()) {
+							if (catch_slang) {
+								// Since all is in code block need this conversion
+								std::replace(current_buffer.begin(), current_buffer.end(), '`', '"');
+								std::replace(current_buffer.begin(), current_buffer.end(), '\'', '"');
+							}
 							current_listing->codeblock(current_buffer, "none", null_source);
 							current_buffer = "";
 						}
@@ -903,6 +910,8 @@ struct HelpPass : public Pass {
 							current_buffer += (blank_lines > 0 ? "\n\n" : "\n") + stripped_line;
 						if (stripped_line.compare("Command file parser supports following commands in file:") == 0)
 							catch_verific = true;
+						if (stripped_line.compare("OVERVIEW: Slang-based SystemVerilog frontend") == 0)
+							catch_slang = true;							
 					}
 					blank_lines = 0;
 				}
