@@ -37,6 +37,3 @@ yosys_frontend(slang
 		$<${YOSYS_ENABLE_SLANG}:slang::slang>
 		fmt::fmt
 )
-
-# TODO: remove next line when warnings/errors are fixed
-set_target_properties(yosys_read_slang PROPERTIES YOSYS_IS_ABC ON)
